@@ -1,6 +1,6 @@
 # My Portfolio | Tibe Calderon
 
-![Portfolio Screenshot](./preview-mockup.png)
+![Portfolio Screenshot](./preview-portfolio.png)
 
 Responsive personal portfolio website developed using HTML, CSS, and JavaScript. The site features CSS animations with a beautiful dark interface. You have the flexibility to customize the color scheme of the project. It supports sending emails through the [Email.js](https://www.emailjs.com/) API and can be easily deployed to the Internet.
 
