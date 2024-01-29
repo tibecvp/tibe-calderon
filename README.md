@@ -1,6 +1,4 @@
-# tibe-calderon
-
-# My Portfolio
+# My Portfolio | Tibe Calderon
 
 ![Portfolio Screenshot](./preview-mockup.png)
 
