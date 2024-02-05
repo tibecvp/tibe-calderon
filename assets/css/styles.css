@@ -413,6 +413,7 @@ svg {
 /*=============== SERVICES ===============*/
 .services__container{
   row-gap: 2rem;
+  justify-content: center;
   padding-block: 1rem;
 }
 
@@ -461,18 +462,17 @@ svg {
 }
 
 .projects__img{
-  width: 100%;
-  height: 240px;
+  height: 200px;
   overflow: hidden;
 }
 
 .projects__modal{
   width: 100%;
+  flex-grow: 1;
   padding: 1rem;
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   transition: bottom .4s;
 }
 
@@ -499,7 +499,8 @@ svg {
   column-gap: .5rem;
   font-weight: var(--font-medium);
   color: var(--first-color);
-  margin-top: 1rem;
+  margin-top: auto;
+  padding-top: 1rem;
 }
 
 .projects__button i{
@@ -677,6 +678,12 @@ svg {
   }
 }
 
+@media screen and (max-width: 767px) {
+  .projects__container{
+    grid-template-columns: 360px;
+  }
+}
+
 @media screen and (min-width: 768px){
   .nav__menu{
     width: 55%;
@@ -828,9 +835,27 @@ svg {
   }
 
   .projects__container{
-    grid-template-columns: repeat(3, 350px);
+    grid-template-columns: 1fr;
     row-gap: 3rem;
     padding-block: 2.5rem 4rem;
+  }
+
+  .projects__card{
+    flex-direction: row;
+  }
+
+  .projects__modal{
+    padding: 1.5rem;
+  }
+
+  .projects__card:nth-child(even){
+    flex-direction: row-reverse;
+  }
+
+  .projects__img{
+    width: 100%;
+    max-width: 380px;
+    height: 100%;
   }
 
   .projects__button{
