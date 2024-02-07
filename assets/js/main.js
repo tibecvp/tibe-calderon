@@ -38,33 +38,36 @@ const blurHeader = () => {
 }
 window.addEventListener('scroll', blurHeader)
 
-/*=============== EMAIL JS ===============*/
-const contactForm = document.getElementById('contact-form'),
-      contactMessage = document.getElementById('contact-message')
+// /*=============== EMAIL JS ===============*/
+// // import * as mail from './mailconf.js';
+// const mail = require('./mailconf');
 
-const sendEmail = (e) => {
-    e.preventDefault()
+// const contactForm = document.getElementById('contact-form'),
+//       contactMessage = document.getElementById('contact-message')
 
-    // serviceID - templateID - #form - publicKey
-    emailjs.sendForm('[SERVICE_ID]', 'template_ctthkeo', '#contact-form', '[PUBLIC_KEY]')
-        .then(() => {
-            // Show sent message
-            contactMessage.textContent = 'Message sent successfully ✅'
+// const sendEmail = (e) => {
+//     e.preventDefault()
 
-            // Remove message after five seconds
-            setTimeout(() => {
-                contactMessage.textContent = ''
-            }, 5000)
+//     // serviceID - templateID - #form - publicKey
+//     emailjs.sendForm(mail.SERVICE_ID, mail.TEMPLATE_ID, '#contact-form', mail.PUBLIC_KEY)
+//         .then(() => {
+//             // Show sent message
+//             contactMessage.textContent = 'Message sent successfully ✅'
 
-            // Clear input fields
-            contactForm.reset()
-        }, () => {
-            // Show error message
-            contactMessage.textContent = 'Message not sent (service error) ❌'
-        })
-}
+//             // Remove message after five seconds
+//             setTimeout(() => {
+//                 contactMessage.textContent = ''
+//             }, 5000)
 
-contactForm.addEventListener('submit', sendEmail)
+//             // Clear input fields
+//             contactForm.reset()
+//         }, () => {
+//             // Show error message
+//             contactMessage.textContent = 'Message not sent (service error) ❌'
+//         })
+// }
+
+// contactForm.addEventListener('submit', sendEmail)
 
 /*=============== SHOW SCROLL UP ===============*/ 
 const scrollUp = () =>{
