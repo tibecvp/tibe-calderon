@@ -467,6 +467,7 @@ svg {
 .projects__img {
   height: 200px;
   overflow: hidden;
+  object-fit: cover;
 }
 
 .projects__modal {
