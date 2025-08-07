@@ -20,16 +20,16 @@ export default async (req, res) => {
                 const publicKey = process.env.EMAILJS_PUBLIC_KEY
 
                 // The data sent from your form's front-end.
-                const { name, email, message } = body
+                const { user_name, user_email, user_project } = body
 
                 const emailParams = {
                     service_id: serviceId,
                     template_id: templateId,
                     user_id: publicKey,
                     template_params: {
-                        from_name: name,
-                        from_email: email,
-                        message: message,
+                        from_name: user_name,
+                        from_email: user_email,
+                        message: user_project,
                     }
                 }
 
