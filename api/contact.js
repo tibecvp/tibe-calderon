@@ -54,6 +54,7 @@ export default async (req, res) => {
             })
         } catch (error) {
             console.error('API Contact Error:', error)
+            console.log('API Contact Error:', error)
             return res.status(500).send('Internal Server Error.')
         }
     } else {
