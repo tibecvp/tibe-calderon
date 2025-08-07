@@ -1,15 +1,23 @@
 /*=============== EMAIL JS ===============*/
-import * as mail from './mailconf.js';
-
 const contactForm = document.getElementById('contact-form'),
-      contactMessage = document.getElementById('contact-message')
+    contactMessage = document.getElementById('contact-message')
 
-const sendEmail = (e) => {
+contactForm.addEventListener('submit', async (e) => {
     e.preventDefault()
 
-    // serviceID - templateID - #form - publicKey
-    emailjs.sendForm(mail.SERVICE_ID, mail.TEMPLATE_ID, '#contact-form', mail.PUBLIC_KEY)
-        .then(() => {
+    const formData = new FormData(contactForm)
+    const data = Object.fromEntries(formData)
+
+    try {
+        const response = await fetch('/api/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+
+        if (response.ok) {
             // Show sent message
             contactMessage.textContent = 'Message sent successfully ✅'
 
@@ -20,10 +28,12 @@ const sendEmail = (e) => {
 
             // Clear input fields
             contactForm.reset()
-        }, () => {
+        } else {
             // Show error message
-            contactMessage.textContent = 'Message not sent (service error) ❌'
-        })
-}
-
-contactForm.addEventListener('submit', sendEmail)
+            const errorMessage = await response.text()
+            contactMessage.textContent = `❌ There was an error: ${errorMessage}`
+        }
+    } catch (error) {
+        console.error('Error:', error)
+    }
+})
