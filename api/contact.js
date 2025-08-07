@@ -2,7 +2,22 @@
 
 const EMAILJS_URL = 'https://api.emailjs.com/api/v1.0/email/send'
 
+// Helper function to set CORS headers
+const setCorsHeaders = (res) => {
+    res.setHeader('Access-Control-Allow-Origin', '*') // Or specify your front-end domain
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+}
+
 export default async (req, res) => {
+    setCorsHeaders(res)
+
+    // Handle the pre-flight request for CORS
+    if (req.method === 'OPTIONS') {
+        res.status(200).end()
+        return
+    }
+
     if (req.method === 'POST') {
         try {
             // Manually read the body from the request stream
