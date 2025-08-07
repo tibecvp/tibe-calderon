@@ -1,4 +1,4 @@
 // serviceID - templateID - #form - publicKey
-export const SERVICE_ID = '';
-export const TEMPLATE_ID = '';
-export const PUBLIC_KEY = '';
+export const SERVICE_ID = 'default_service'
+export const TEMPLATE_ID = 'template_ctthkeo'
+export const PUBLIC_KEY = 'PShAPWdCIjdtbXH3d'
