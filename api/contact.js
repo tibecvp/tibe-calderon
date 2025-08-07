@@ -54,9 +54,9 @@ export default async (req, res) => {
             template_id: templateId,
             user_id: publicKey,
             template_params: {
-                from_name: user_name,
-                from_email: user_email,
-                message: user_project,
+                user_name,
+                user_email,
+                user_project,
             },
         }
 
