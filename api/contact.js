@@ -2,78 +2,80 @@
 
 const EMAILJS_URL = 'https://api.emailjs.com/api/v1.0/email/send'
 
-// Helper function to set CORS headers
-const setCorsHeaders = (res) => {
-    res.setHeader('Access-Control-Allow-Origin', '*') // Or specify your front-end domain
+export default async (req, res) => {
+    // Set CORS headers for all requests
+    res.setHeader('Access-Control-Allow-Origin', '*')
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-}
 
-export default async (req, res) => {
-    setCorsHeaders(res)
-
-    // Handle the pre-flight request for CORS
+    // Handle pre-flight OPTIONS request
     if (req.method === 'OPTIONS') {
-        res.status(200).end()
-        return
+        return res.status(200).end()
     }
 
-    if (req.method === 'POST') {
-        try {
-            // Manually read the body from the request stream
-            const bodyChunks = []
-            req.on('data', (chunk) => {
-                bodyChunks.push(chunk)
-            })
+    if (req.method !== 'POST') {
+        return res.status(405).send('Method Not Allowed')
+    }
 
-            req.on('end', async () => {
-                const body = JSON.parse(Buffer.concat(bodyChunks).toString())
-
-                // These variables are securely pulled from Vercel's environment variables.
-                const serviceId = process.env.EMAILJS_SERVICE_ID
-                const templateId = process.env.EMAILJS_TEMPLATE_ID
-                const publicKey = process.env.EMAILJS_PUBLIC_KEY
-
-                // The data sent from your form's front-end.
-                const { user_name, user_email, user_project } = body
-
-                const emailParams = {
-                    service_id: serviceId,
-                    template_id: templateId,
-                    user_id: publicKey,
-                    template_params: {
-                        from_name: user_name,
-                        from_email: user_email,
-                        message: user_project,
-                    }
-                }
-
+    try {
+        // This is a more robust way to parse the JSON request body
+        const data = await new Promise((resolve, reject) => {
+            let body = ''
+            req.on('data', chunk => (body += chunk.toString()))
+            req.on('end', () => {
                 try {
-                    const response = await fetch(EMAILJS_URL, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(emailParams),
-                    })
-
-                    if (response.ok) {
-                        return res.status(200).send('Email sent successfully!')
-                    } else {
-                        const errorData = await response.json()
-                        return res.status(response.status).send(`Error sending email: ${errorData.text || 'Unknown error'}`)
-                    }
+                    resolve(JSON.parse(body))
                 } catch (error) {
-                    return res.status(500).send('Internal Server Error.')
+                    reject(error)
                 }
             })
-        } catch (error) {
-            console.error('API Contact Error:', error)
-            console.log('API Contact Error:', error)
-            return res.status(500).send('Internal Server Error.')
+            req.on('error', reject)
+        })
+
+        const { name, email, message } = data
+
+        // Verify that the data was correctly parsed
+        if (!name || !email || !message) {
+            return res.status(400).send('Missing form data')
         }
-    } else {
-        // Handle any requests that aren't POST.
-        res.status(405).send('Method Not Allowed')
+
+        const serviceId = process.env.EMAILJS_SERVICE_ID
+        const templateId = process.env.EMAILJS_TEMPLATE_ID
+        const publicKey = process.env.EMAILJS_PUBLIC_KEY
+
+        // Final sanity check for environment variables
+        if (!serviceId || !templateId || !publicKey) {
+            console.error('EmailJS environment variables are not set!')
+            return res.status(500).send('Configuration Error')
+        }
+
+        const emailParams = {
+            service_id: serviceId,
+            template_id: templateId,
+            user_id: publicKey,
+            template_params: {
+                from_name: name,
+                from_email: email,
+                message: message,
+            },
+        }
+
+        const response = await fetch(EMAILJS_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(emailParams),
+        })
+
+        if (response.ok) {
+            return res.status(200).send('Email sent successfully!')
+        } else {
+            const errorData = await response.json()
+            return res.status(response.status).send(`Error sending email: ${errorData.text || 'Unknown error'}`)
+        }
+    } catch (error) {
+        console.error('API Contact Error:', error)
+        return res.status(500).send('Internal Server Error.')
     }
 }
