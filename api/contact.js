@@ -32,10 +32,10 @@ export default async (req, res) => {
             req.on('error', reject)
         })
 
-        const { name, email, message } = data
+        const { user_name, user_email, user_project } = data
 
         // Verify that the data was correctly parsed
-        if (!name || !email || !message) {
+        if (!user_name || !user_email || !user_project) {
             return res.status(400).send('Missing form data')
         }
 
@@ -54,9 +54,9 @@ export default async (req, res) => {
             template_id: templateId,
             user_id: publicKey,
             template_params: {
-                from_name: name,
-                from_email: email,
-                message: message,
+                from_name: user_name,
+                from_email: user_email,
+                message: user_project,
             },
         }
 
