@@ -154,6 +154,12 @@ svg {
   margin-bottom: 0.25rem;
 }
 
+.section__text {
+  text-align: center;
+  color: var(--text-color);
+  padding: 1rem;
+}
+
 .section__subtitle span {
   color: var(--first-color);
 }

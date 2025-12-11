@@ -87,5 +87,4 @@ sr.reveal(`.services__card, .projects__card`, { interval: 100 })
 const copyrightText = document.getElementById('footer__copyright')
 const currentYear = new Date().getFullYear()
 copyrightText.innerHTML = `
-    &copy; ${currentYear} Tiberio Calderón | Full-Stack Developer
-    <br><span>Template design by Bedimcode</span>`
+    &copy; ${currentYear} Tiberio Calderón | Software Engineer`
