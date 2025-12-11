@@ -282,7 +282,7 @@ svg {
 }
 
 .home__subtitle,
-.home__education {
+.home__role {
   font-size: var(--bigger-font-size);
 }
 
@@ -355,11 +355,15 @@ svg {
 }
 
 .about__description {
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 .about__image {
   justify-self: center;
+}
+
+.about__button {
+  margin-top: 2rem;
 }
 
 .about__blob {
@@ -394,8 +398,7 @@ svg {
 }
 
 .skills__content {
-  grid-template-columns: repeat(2, max-content);
-  column-gap: 4rem;
+  /* grid-template-columns: repeat(2, max-content); */
   justify-content: center;
   align-items: baseline;
 }
@@ -403,6 +406,7 @@ svg {
 .skills__group {
   row-gap: 1rem;
   list-style: decimal-leading-zero;
+  margin-left: 2rem;
 }
 
 .skills__item {
@@ -482,7 +486,8 @@ svg {
 }
 
 .projects__subtitle,
-.projects__button {
+.projects__button,
+.projects__info {
   color: var(--title-color);
   font-size: var(--small-font-size);
 }
@@ -495,6 +500,15 @@ svg {
 .projects__title {
   font-size: var(--h2-font-size);
   margin-bottom: 0.75rem;
+}
+
+.projects__info span {
+  font-weight: bold;
+  margin-right: 0.4rem;
+}
+
+.projects__description {
+  margin-top: 0.5rem;
 }
 
 .projects__button {
@@ -648,11 +662,6 @@ svg {
     margin-inline: 1rem;
   }
 
-  .skills__content {
-    grid-template-columns: max-content;
-    row-gap: 1rem;
-  }
-
   .services__card {
     padding-block: 1.5rem;
   }
@@ -800,6 +809,10 @@ svg {
   }
 
   .about__description {
+    margin-bottom: 0.8rem;
+  }
+
+  .about__button {
     margin-bottom: 3rem;
   }
 
@@ -812,10 +825,6 @@ svg {
 
   .skills__description {
     margin-bottom: 3rem;
-  }
-
-  .skills__content {
-    column-gap: 8rem;
   }
 
   .skills__group {
