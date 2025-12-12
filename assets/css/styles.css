@@ -253,7 +253,7 @@ svg {
 .blur-header::after {
   content: "";
   position: absolute;
-  width: 1000%;
+  width: 100%;
   height: 100%;
   background-color: hsla(0, 0%, 10%, 0.3);
   backdrop-filter: blur(24px);
@@ -765,11 +765,6 @@ svg {
 
   .nav__menu {
     width: initial;
-  }
-
-  .blur-header::after {
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px); /* For Safari */
   }
 }
 
